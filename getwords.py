@@ -13,7 +13,7 @@ def get_words(url):
 	# cached = redis.get(url)
 	# if cached:
 		# return cached
-		
+
     html = requests.get(url).text.encode('ascii', 'ignore')
     html = html.encode('ascii', 'ignore')
     soup = BeautifulSoup(html)
@@ -26,9 +26,14 @@ def get_words(url):
             return False
         return True
     visible_texts = filter(visible, texts)
-    text = ''.join(visible_texts).replace('\n', ' ')
-    words = re.sub( '\s+', ' ', text ).strip()
-    words = re.sub('[^A-Za-z0-9\.\-\?\!\~\s]+', '', words)
+
     # r.set(url, words)
     # r.expire(url, EXPIRE_TIME)
+    return clean_text(visible_texts)
+
+def clean_text(visible_texts):
+	text = ''.join(visible_texts).replace('\n', ' ')
+    words = re.sub( '\s+', ' ', text ).strip()
+    words = re.sub( ' \.\.\. ', ' ', words)
+    words = re.sub('[^A-Za-z0-9\.\-\?\!\~\s]+', '', words)
     return words.lower().encode('ascii', 'ignore')
