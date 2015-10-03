@@ -8,11 +8,11 @@ import redis
 # r = redis.Redis()
 
 def get_words(url):
-	# Returns the string of content of the page
+    # Returns the string of content of the page
 
-	# cached = redis.get(url)
-	# if cached:
-		# return cached
+    # cached = redis.get(url)
+    # if cached:
+        # return cached
 
     html = requests.get(url).text.encode('ascii', 'ignore')
     html = html.encode('ascii', 'ignore')
@@ -32,7 +32,7 @@ def get_words(url):
     return clean_text(visible_texts)
 
 def clean_text(visible_texts):
-	text = ''.join(visible_texts).replace('\n', ' ')
+    text = ''.join(visible_texts).replace('\n', ' ')
     words = re.sub( '\s+', ' ', text ).strip()
     words = re.sub( ' \.\.\. ', ' ', words)
     words = re.sub('[^A-Za-z0-9\.\-\?\!\~\s]+', '', words)
