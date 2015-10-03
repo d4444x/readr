@@ -1,6 +1,9 @@
 from __future__ import  division
 from textstat.textstat import textstat
 import numpy as np
+from sklearn.linear_model import SGDClassifier
+from sklearn.svm import NuSVC
+from sklearn import svm
 import re
 
 
@@ -9,16 +12,41 @@ def text_analytics(text):
         lexicon = textstat.lexicon_count(text) #word count
         sent = textstat.sentence_count(text) #sentence count
         syll = textstat.syllable_count(text) #syllable count
-        flesch = sent*textstat.flesch_reading_ease(text) #flesch score
-        smog = syll*textstat.smog_index(text) #SMOG index
-        fog = sent*textstat.gunning_fog(text) #FOG index
-        dale = sent*textstat.dale_chall_readability_score(text) #grade level
-        ari = sent*textstat.automated_readability_index(text) #grade level
-        cl = sent*textstat.coleman_liau_index(text) #grade level
+        flesch = textstat.flesch_reading_ease(text) #flesch score
+        smog = textstat.smog_index(text) #SMOG index
+        fog = textstat.gunning_fog(text) #FOG index
+        dale = textstat.dale_chall_readability_score(text) #grade level
+        ari = textstat.automated_readability_index(text) #grade level
+        cl = textstat.coleman_liau_index(text) #grade level
+
+        flesch1 = lexicon*flesch
+        flesch2 = sent*flesch
+        flesch3 = syll*flesch
+        smog1 = lexicon*smog #SMOG index
+        smog2 = sent*smog
+        smog3 = syll*smog
+        fog1 = lexicon*fog
+        fog2 = sent*fog
+        fog3 = syll*fog
+        dale1 = lexicon*dale
+        dale2 = sent*dale
+        dale3=syll*dale
+        ari1 = lexicon*ari
+        ari2 = sent*ari
+        ari3 = syll*ari
+        cl1 = lexicon*cl
+        cl2 = sent*cl
+        cl3 = syll*cl
         #x = [lexicon,sent,syll,flesch,smog,fog,dale,ari,cl]
         #x = [lexicon,sent,flesch,dale]
-        x=[lexicon]
+        x=[lexicon,sent,syll,flesch,smog,fog,dale,ari,cl,flesch1,flesch2,flesch3,smog1,smog2,smog3,fog1,fog2,fog3,dale1,dale2,dale3,ari1,ari2,ari3,cl1,cl2,cl3]
     return(x)
+
+def getReadTime(X,y,content):
+    clf = SGDClassifier(loss="squared_loss")
+    clf.fit(X,y)
+    x=text_analytics(content)
+    return clf.predict(x)
 
 avg_murica = 200 #wpm
 
@@ -48,11 +76,29 @@ new5 = "random hacks  assorted infodumps. by windytan oona risnen pages home lis
 x5 = text_analytics(new5)
 
 #x = np.vstack((old,x))
-x = [old,x2,x3,x4]
-print x
+X = [old,x2,x3,x4]
+print X
 
-y = np.array([[525],[88],[156],[201]]) #lukes [131]
+#y = np.array([[525],[88],[156],[201]]) #lukes [131]
+y = [525,88,156,201]
 
+clf = SGDClassifier(loss="squared_loss")
+clf2 = SGDClassifier(loss="hinge",penalty='l1')
+clf3 = NuSVC()
+clf4 = svm.SVC(kernel='linear')
+clf.fit(X,y)
+clf2.fit(X,y)
+clf3.fit(X,y)
+clf4.fit(X,y)
+print clf
+print clf.predict(x5)
+print clf2.predict(x5)
+print clf3.predict(x5)
+print clf4.predict(x5)
+
+
+
+"""
 x_trans = np.transpose(x)
 g_inv = np.linalg.inv(np.dot(x_trans,x))
 Beta = np.dot(np.dot(g_inv,x_trans),y)
@@ -62,4 +108,5 @@ print x5
 predicted = np.dot(x5,Beta)
 print predicted
 
+"""
 
