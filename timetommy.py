@@ -1,9 +1,11 @@
 import db
-
+import ReadSpeed
 
 # Needs to return a time
 def calculate_time(content, user_id):
-    return 666
+    #get X matrix
+    #get Y vector
+    return ReadSpeed.getReadTime(content) #pass X,y
 
 
 
