@@ -10,11 +10,12 @@ def get_info():
     try:
         user_id = request.form['user_id']
         url = request.form['url']
+	index = request.form['index']
     except Exception, e:
         return str(e)
     content = getwords.get_words(url)
     t = timetotommy.calculate_time(content, user_id)
-    return str(t)
+    return {"time": str(t),"index": index}
 
 @app.route("/record_time", methods=['POST'])
 def save_info():
