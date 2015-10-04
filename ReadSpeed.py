@@ -20,7 +20,7 @@ def text_analytics(text):
         flesch1 = lexicon*flesch
         flesch2 = sent*flesch
         flesch3 = syll*flesch
-        smog1 = lexicon*smog #SMOG index
+        smog1 = lexicon*smog
         smog2 = sent*smog
         smog3 = syll*smog
         fog1 = lexicon*fog
@@ -35,8 +35,6 @@ def text_analytics(text):
         cl1 = lexicon*cl
         cl2 = sent*cl
         cl3 = syll*cl
-        #x = [lexicon,sent,syll,flesch,smog,fog,dale,ari,cl]
-        #x = [lexicon,sent,flesch,dale]
         x=[lexicon,sent,syll,flesch,smog,fog,dale,ari,cl,flesch1,flesch2,flesch3,smog1,                 smog2,smog3,fog1,fog2,fog3,dale1,dale2,dale3,ari1,ari2,ari3,cl1,cl2,cl3]
     return(x)
 
