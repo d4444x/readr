@@ -92,7 +92,8 @@ function getRandomToken() {
 }
 
 chrome.storage.sync.get('userid', function(items) {
-    var userid = items.userid;
+    //var userid = items.userid;
+    var userid = 420420;
     if (userid) {
         useToken(userid);
     } else {

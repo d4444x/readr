@@ -3,7 +3,7 @@ var mousemoving;
 var scrolling;
 var scrollingtimeout;
 var seconds = 0, minutes = 0, hours = 0, totalElapsed = 0;
-var myurl = null, userid = null;
+var myurl = null, userid = 420420;
 var t;
 
 window.onscroll = function ()
@@ -55,10 +55,11 @@ function postTimeToServer()
   var urlToPostTo = "https://45.79.184.205:5000/record_time";
   var query = 
   [{
-    'user_id' : 10000000,
+    'user_id' : userid,
     'url' : myurl,
     'time' : totalElapsed
   }];
+  //console.log(query);
 
     $.ajax({
         type: "POST",
@@ -82,7 +83,7 @@ function getRandomToken() {
     return hex;
 }
 
-document.addEventListener("unload", postTimeToServer());
+document.addEventListener("unload", postTimeToServer);
 
 chrome.storage.sync.get('userid', function(items) {
     var userid = items.userid;
@@ -106,6 +107,7 @@ function checkURLAndStartRunning()
   myurl = document.URL;
   if (myurl.indexOf("https://news.ycombinator.com/") === -1)
   {
+    console.log("starting...");
     timer();
     createButton();
   }
@@ -116,7 +118,7 @@ function createButton()
   buttonDiv = document.createElement("div");
   likeButton = document.createElement("button");
   dislikeButton = document.createElement("button");
-  buttonDiv.id = 'buttons';
+  buttonDiv.id = 'buttonss';
   likeButton.innerHTML = 'Liked';
   dislikeButton.innerHTML = 'Dislike';
   buttonDiv.appendChild(likeButton);
@@ -129,7 +131,7 @@ function createButton()
 
   document.getElementsByTagName("body")[0].appendChild(buttonDiv);
 
-  likeButton.addEventListener("onClick", postTimeToServer());
+  likeButton.addEventListener("click", postTimeToServer);
 }
 
 checkURLAndStartRunning();

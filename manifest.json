@@ -26,6 +26,7 @@
     "webNavigation",
     "https://news.ycombinator.com/*",
     "https://45.79.184.205:5000/get_time",
+    "https://45.79.184.205:5000/record_time",
     "identity"
   ]
 }
