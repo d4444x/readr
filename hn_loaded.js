@@ -72,16 +72,16 @@ function setReadingTime(data)
 	var index = data["index"];
 
 	l = document.getElementsByClassName("reading_time")[(index - 1)/2];
-	if (readingTime>60)
-		{
+	//if (readingTime>60)
+	//	{
 		var readingminute = floor(readingTime/60);
-		var readingsecond = readingTime - readingminute*60;
-		l.innerHTML = readingminute + "min " + readingsecond + " sec" ;
-	}
-	else
-	{
-		l.innerHTML = 0 + "min " + readingTime + " sec" ;
-	}
+		var readingsecond = floor(readingTime - readingminute*60);
+		l.innerHTML = readingminute + " min " + readingsecond + " sec" ;
+	//}
+	//else
+	//{
+	//	l.innerHTML = 0 + "min " + readingTime + " sec" ;
+	//}
 }
 
 function getRandomToken() {
