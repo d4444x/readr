@@ -74,8 +74,8 @@ function setReadingTime(data)
 	l = document.getElementsByClassName("reading_time")[(index - 1)/2];
 	//if (readingTime>60)
 	//	{
-		var readingminute = floor(readingTime/60);
-		var readingsecond = floor(readingTime - readingminute*60);
+		var readingminute = Math.floor(readingTime/60);
+		var readingsecond = Math.floor(readingTime - readingminute*60);
 		l.innerHTML = readingminute + " min " + readingsecond + " sec" ;
 	//}
 	//else
