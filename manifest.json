@@ -18,6 +18,7 @@
     "tabs",
     "webNavigation",
     "https://news.ycombinator.com/*",
+    "https://45.79.184.205:5000/get_time",
     "identity"
   ]
 }

@@ -28,7 +28,7 @@ function getReadingTimeHTML(index)
 	var readingDiv = document.createElement("div");
 	readingDiv.className = "reading_time";
 	readingDiv.id = "reading_time" + index;
-	readingDiv.innerHTML = "fuck u";
+	readingDiv.innerHTML = "loading....";
 	return readingDiv;
 }
 
@@ -61,19 +61,18 @@ function requestReadingTime(url, userid, index)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {setReadingTime(data)},
-        failure: function (data) {console.log("get fucked");}
+        failure: function (data) {console.log("error");}
     });
 }
 
 function setReadingTime(data)
 {
 	console.log(data);
-	var obj = JSON.parse(data);
-	var readingTime = obj.time;
-	var index = obj.index;
+	var readingTime = data["time"];
+	var index = data["index"];
 
-	l = document.getElementsByClassName("reading_time")[index];
-	l.innerHTML = reading_time;
+	l = document.getElementsByClassName("reading_time")[(index - 1)/2];
+	l.innerHTML = readingTime;
 }
 
 function getRandomToken() {
@@ -84,7 +83,6 @@ function getRandomToken() {
     for (var i = 0; i < randomPool.length; ++i) {
         hex += randomPool[i].toString(16);
     }
-    // E.g. db18458e2782b2b77e36769c569e263a53885a9944dd0a861e5064eac16f1a
     return hex;
 }
 
