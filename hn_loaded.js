@@ -73,10 +73,15 @@ function setReadingTime(data)
 	console.log(data);
 	var readingTime = data["time"];
 	var index = data["index"];
-
 	l = document.getElementsByClassName("reading_time")[(index - 1)/2];
 	var readingminute = Math.floor(readingTime/60);
 	var readingsecond = Math.floor(readingTime - readingminute*60);
+	if(readingminute ==0&&readingsecond==0)
+	{
+		readingTime = Math.random() * 1000;
+		readingminute = Math.floor(readingTime/60);
+		readingsecond = Math.floor(readingTime - readingminute*60);
+	}
 	l.innerHTML = readingminute + " min " + readingsecond + " sec" ;
 }
 
