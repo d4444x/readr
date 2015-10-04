@@ -24,6 +24,7 @@ def calculate_time(content, user_id):
             y.append(y_i)
         return ReadSpeed.getReadTime(X,y,content,col_names)
     else:
+	add_read(user_id)
         return ReadSpeed.getReadTimeNewUser(content)
 
 
