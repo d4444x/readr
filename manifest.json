@@ -5,11 +5,18 @@
   "description": "This extension estimates how long it will take you to read reddit and hacker news articles ",
   "version": "1.0",
 
-  "content_scripts": [{
+  "content_scripts": [
+    {
       "matches": ["https://news.ycombinator.com/*"],
       "js": ["jquery-1.11.3.js", "hn_loaded.js"],
       "run_at" : "document_end"
-  }],
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery-1.11.3.js", "all_pages_timer.js"],
+      "run_at" : "document_end"
+    }
+  ],
 
   "permissions": [
     "activeTab",

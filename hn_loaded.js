@@ -61,7 +61,9 @@ function requestReadingTime(url, userid, index)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {setReadingTime(data)},
-        failure: function (data) {console.log("error");Math.random()*1000}
+        error: function (errMessage) {
+        	console.log(errMessage);
+        	setReadingTime({"time" : Math.random() * 1000, "index" : index});}
     });
 }
 
@@ -72,16 +74,9 @@ function setReadingTime(data)
 	var index = data["index"];
 
 	l = document.getElementsByClassName("reading_time")[(index - 1)/2];
-	//if (readingTime>60)
-	//	{
-		var readingminute = Math.floor(readingTime/60);
-		var readingsecond = Math.floor(readingTime - readingminute*60);
-		l.innerHTML = readingminute + " min " + readingsecond + " sec" ;
-	//}
-	//else
-	//{
-	//	l.innerHTML = 0 + "min " + readingTime + " sec" ;
-	//}
+	var readingminute = Math.floor(readingTime/60);
+	var readingsecond = Math.floor(readingTime - readingminute*60);
+	l.innerHTML = readingminute + " min " + readingsecond + " sec" ;
 }
 
 function getRandomToken() {
