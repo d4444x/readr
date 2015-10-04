@@ -20,7 +20,7 @@
         max-width: 400px;
       }
       .onoffswitch {
-    position: relative; width: 90px;
+    position: relative; width: 160px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch-checkbox {
@@ -51,7 +51,7 @@
     text-align: right;
 }
 .onoffswitch-switch {
-    display: block; width: 18px; margin: 6px;
+    display: block; width: 18px; margin: 6px; height: 18px;
     background: #FFFFFF;
     position: absolute; top: 0; bottom: 0;
     right: 56px;
@@ -82,6 +82,11 @@
         <span class="onoffswitch-inner"></span>
         <span class="onoffswitch-switch"></span>
     </label>
+    <h1><time>00:00:00</time></h1>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+    <button id="clear">clear</button>
+    <script src="timer.js"></script>
 </div>
   </body>
 </html>
