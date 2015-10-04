@@ -23,7 +23,7 @@ function add() {
   if(mousemoving==1||scrolling==1)
   {
     totalElapsed++;
-    console.log (myurl + ", " + userid + ", " + totalElapsed);
+    //console.log (myurl + ", " + userid + ", " + totalElapsed);
     seconds++;
     if (seconds >= 60) 
     {
@@ -46,14 +46,16 @@ function timer()
 
 function postTimeToServer()
 {
+  console.log("clicked");
   if (myurl == null || userid == null)
   {
     return;
   }
+  console.log("posting...");
   var urlToPostTo = "https://45.79.184.205:5000/record_time";
   var query = 
   [{
-    'user_id' : userid,
+    'user_id' : 10000000,
     'url' : myurl,
     'time' : totalElapsed
   }];
@@ -64,8 +66,8 @@ function postTimeToServer()
         data: JSON.stringify(query, null, '\t'),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (data) {},
-        error: function (data) {}
+        success: function (data) {(console.log("post succes"))},
+        error: function (errMsg) {(console.log(errMsg));}
     });
 }
 
@@ -105,13 +107,38 @@ function checkURLAndStartRunning()
   if (myurl.indexOf("https://news.ycombinator.com/") === -1)
   {
     timer();
+    createButton();
   }
+}
+
+function createButton()
+{
+  buttonDiv = document.createElement("div");
+  likeButton = document.createElement("button");
+  dislikeButton = document.createElement("button");
+  buttonDiv.id = 'buttons';
+  likeButton.innerHTML = 'Liked';
+  dislikeButton.innerHTML = 'Dislike';
+  buttonDiv.appendChild(likeButton);
+  buttonDiv.appendChild(dislikeButton);
+
+  buttonDiv.style.position = 'fixed';
+  buttonDiv.style.bottom = '20px';
+  buttonDiv.style.right = '20px';
+  buttonDiv.style.opacity = '.5';
+
+  document.getElementsByTagName("body")[0].appendChild(buttonDiv);
+
+  likeButton.addEventListener("onClick", postTimeToServer());
 }
 
 checkURLAndStartRunning();
 
 
-
-
-
-
+// #buttonss{
+//             position: fixed;
+//             bottom : 20px;
+//             right : 20px;
+//             opacity: .5;
+//         }
+// <div id='buttonss'><button>Liked</button><button>Dislike</button></div>

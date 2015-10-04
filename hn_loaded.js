@@ -47,6 +47,7 @@ function requestReadingTime(url, userid, index)
 {
 
 	var urlToPostTo = "https://45.79.184.205:5000/get_time";
+	console.log(userid);
 	var query = 
 	[{
 	  "user_id" : userid,

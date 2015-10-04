@@ -2,8 +2,6 @@ from flask import Flask, request, jsonify
 import timetommy
 import getwords
 
-
-
 from flask.ext.cors import CORS
 from OpenSSL import SSL
 context = SSL.Context(SSL.SSLv23_METHOD)
