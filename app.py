@@ -34,9 +34,9 @@ def get_info():
 @app.route("/record_time", methods=['POST'])
 def save_info():
     try:
-        user_id = request.form['user_id']
-        url = request.form['url']
-        actual_time = request.form['time']
+        user_id = request.json['user_id']
+        url = request.json['url']
+        actual_time = request.json['time']
     except Exception, e:
         return str(e)
     content = getwords.get_words(url)
