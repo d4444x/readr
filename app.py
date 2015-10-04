@@ -1,9 +1,22 @@
-from flask import Flask, request
-import timetotommy
+from flask import Flask, request, jsonify
+import timetommy
 import getwords
+
+
+
+from flask.ext.cors import CORS
+from OpenSSL import SSL
+context = SSL.Context(SSL.SSLv23_METHOD)
+context.use_privatekey_file('ssl.key')
+context.use_certificate_file('ssl.cert')
+context = ('ssl.cert', 'ssl.key')
 app = Flask(__name__)
 
 app.debug = True
+
+@app.route('/')
+def hello():
+    return 'hello'
 
 @app.route("/get_time", methods=['POST'])
 def get_info():
@@ -14,7 +27,8 @@ def get_info():
     except Exception, e:
         return str(e)
     content = getwords.get_words(url)
-    t = timetotommy.calculate_time(content, user_id)
+    t = timetommy.calculate_time(content, user_id)
+    print jsonify({"time": str(t),"index": index})
     return jsonify({"time": str(t),"index": index})
 
 @app.route("/record_time", methods=['POST'])
@@ -26,9 +40,9 @@ def save_info():
     except Exception, e:
         return str(e)
     content = getwords.get_words(url)
-    t = timetotommy.save_metrics(content, user_id, actual_time)
+    t = timetommy.save_metrics(content, user_id, actual_time)
     return str(t)
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, ssl_context = context)
