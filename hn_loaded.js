@@ -61,7 +61,7 @@ function requestReadingTime(url, userid, index)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {setReadingTime(data)},
-        failure: function (data) {console.log("error");}
+        failure: function (data) {console.log("error");Math.random()*1000}
     });
 }
 
