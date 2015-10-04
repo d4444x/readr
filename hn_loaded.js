@@ -9,7 +9,7 @@ function getArticleLinks(userid)
 	for(var i=1; i < l.length; i+=2) 
 	{
 		arr.push(l[i].getElementsByTagName("a")[0].href);
-		requestReadingTime(l[i].getElementsByTagName("a")[0].href, userid, index);
+		requestReadingTime(l[i].getElementsByTagName("a")[0].href, userid, i);
 	}
 	displayEstimatedReadingTime(userid, l)
 }
